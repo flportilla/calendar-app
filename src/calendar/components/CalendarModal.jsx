@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { addHours } from 'date-fns';
+import { addHours, differenceInSeconds } from 'date-fns';
 
 import Modal from 'react-modal'
 import './CalendarModal.css'
 
-import DatePicker from 'react-datepicker'
+import DatePicker, { registerLocale } from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+
+//import es from 'date-fns/locale/es'
+//registerLocale('es', es)
 
 const customStyles = {
     content: {
@@ -49,7 +52,17 @@ export const CalendarModal = () => {
         })
     }
 
-    console.log(formValues)
+    const onSubmit = (event) => {
+        event.preventDefault()
+        const difference = differenceInSeconds(formValues.end, formValues.start)
+
+        if (difference < 0 || isNaN(difference)) return;
+
+        if (formValues.title.length <= 0) return;
+
+        console.log(formValues)
+    }
+
     return (
         <Modal
             isOpen={isOpen}
@@ -61,7 +74,10 @@ export const CalendarModal = () => {
         >
             <h1> New event </h1>
             <hr />
-            <form className="container">
+            <form
+                className="container"
+                onSubmit={onSubmit}
+            >
 
                 <div className="form-group mb-2">
                     <label>Start date and time</label>
@@ -71,6 +87,9 @@ export const CalendarModal = () => {
                         onChange={(event) => onDateChange(event, 'start')}
                         className="form-control"
                         dateFormat="Pp"
+                        showTimeSelect
+                    //locale="es"
+                    //timeCaption="hora"
                     />
                 </div>
 
@@ -82,6 +101,9 @@ export const CalendarModal = () => {
                         onChange={(event) => onDateChange(event, 'end')}
                         className="form-control"
                         dateFormat="Pp"
+                        showTimeSelect
+                    //locale="es"
+                    //timeCaption="hora"
                     />
                 </div>
 
