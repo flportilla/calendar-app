@@ -8,7 +8,6 @@ import { differenceInSeconds } from 'date-fns';
 export const useModalForm = (initialState = {}) => {
 
     const [formSubmitted, setFormSubmitted] = useState(false)
-    const [isOpen, setisOpen] = useState(true)
     const [formValues, setformValues] = useState(initialState)
 
     const titleClass = useMemo(() => {
@@ -19,10 +18,6 @@ export const useModalForm = (initialState = {}) => {
             : 'is-invalid'
 
     }, [formValues.title, formSubmitted])
-
-    const onCloseModal = () => {
-        setisOpen(false)
-    }
 
     const onInputChange = ({ target }) => {
         setformValues({
@@ -53,8 +48,7 @@ export const useModalForm = (initialState = {}) => {
     }
 
     return {
-        isOpen,
-        onCloseModal,
+
         onDateChange,
         onInputChange,
         onSubmit,
