@@ -6,6 +6,7 @@ import 'sweetalert2/dist/sweetalert2.min.css'
 import { addHours, differenceInSeconds } from 'date-fns';
 import { onSetActiveEvent } from '../store';
 import { useCalendarStore } from './useCalendarStore';
+import { useUiStore } from './useUiStore';
 
 const initialFormState = {
     title: '',
@@ -16,10 +17,11 @@ const initialFormState = {
 
 export const useModalForm = (initialState = {}) => {
 
-    const { activeEvent } = useCalendarStore()
+    const { activeEvent, startSavingEvent } = useCalendarStore()
+    const { isDateModalOpen, closeDateModal } = useUiStore()
 
     const [formSubmitted, setFormSubmitted] = useState(false)
-    const [formValues, setformValues] = useState(initialState)
+    const [formValues, setformValues] = useState(initialFormState)
 
     const titleClass = useMemo(() => {
         if (!formSubmitted) return ''
@@ -52,7 +54,7 @@ export const useModalForm = (initialState = {}) => {
         })
     }
 
-    const onSubmit = (event) => {
+    const onSubmit = async (event) => {
         event.preventDefault();
         setFormSubmitted(true);
         const difference = differenceInSeconds(formValues.end, formValues.start);
@@ -64,10 +66,15 @@ export const useModalForm = (initialState = {}) => {
         };
 
         if (formValues.title.length <= 0) return
+
+        await startSavingEvent(formValues)
+        closeDateModal()
+        setFormSubmitted(false);
     }
 
     return {
-
+        isDateModalOpen,
+        closeDateModal,
         onDateChange,
         onInputChange,
         onSubmit,
