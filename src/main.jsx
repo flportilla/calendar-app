@@ -6,7 +6,7 @@ import './styles.css'
 
 //@ts-ignore
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <CalendarApp />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <CalendarApp />
+  // </React.StrictMode>
 )
