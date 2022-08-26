@@ -1,11 +1,22 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css'
 
-import { differenceInSeconds } from 'date-fns';
+import { addHours, differenceInSeconds } from 'date-fns';
+import { onSetActiveEvent } from '../store';
+import { useCalendarStore } from './useCalendarStore';
+
+const initialFormState = {
+    title: '',
+    notes: '',
+    start: new Date(),
+    end: addHours(new Date(), 2)
+}
 
 export const useModalForm = (initialState = {}) => {
+
+    const { activeEvent } = useCalendarStore()
 
     const [formSubmitted, setFormSubmitted] = useState(false)
     const [formValues, setformValues] = useState(initialState)
@@ -18,6 +29,14 @@ export const useModalForm = (initialState = {}) => {
             : 'is-invalid'
 
     }, [formValues.title, formSubmitted])
+
+    useEffect(() => {
+        if (activeEvent !== null) {
+            setformValues({ ...activeEvent })
+        }
+
+    }, [activeEvent])
+
 
     const onInputChange = ({ target }) => {
         setformValues({
