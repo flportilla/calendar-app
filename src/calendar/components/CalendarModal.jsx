@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
-import { addHours, differenceInSeconds } from 'date-fns';
+import React from 'react'
 
 import Modal from 'react-modal'
 import './CalendarModal.css'
 
-import DatePicker, { registerLocale } from 'react-datepicker'
+import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+
+import { addHours } from 'date-fns'
+
+import { useModalForm } from '../../hooks/useModalForm'
 
 //import es from 'date-fns/locale/es'
 //registerLocale('es', es)
@@ -23,45 +26,22 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
+const initialFormState = {
+    title: '',
+    notes: '',
+    start: new Date(),
+    end: addHours(new Date(), 2)
+}
+
 export const CalendarModal = () => {
 
-    const [isOpen, setisOpen] = useState(true)
-    const [formValues, setformValues] = useState({
-        title: '',
-        notes: '',
-        start: new Date(),
-        end: addHours(new Date(), 2)
-    })
-
-    const onCloseModal = () => {
-        setisOpen(false)
-    }
-
-    const onInputChange = ({ target }) => {
-        setformValues({
-            ...formValues,
-            [target.name]: target.value
-        })
-
-    }
-
-    const onDateChange = (event, changing = '') => {
-        setformValues({
-            ...formValues,
-            [changing]: event
-        })
-    }
-
-    const onSubmit = (event) => {
-        event.preventDefault()
-        const difference = differenceInSeconds(formValues.end, formValues.start)
-
-        if (difference < 0 || isNaN(difference)) return;
-
-        if (formValues.title.length <= 0) return;
-
-        console.log(formValues)
-    }
+    const { isOpen,
+        onCloseModal,
+        onDateChange,
+        onInputChange,
+        onSubmit,
+        titleClass,
+        formValues } = useModalForm(initialFormState)
 
     return (
         <Modal
@@ -112,7 +92,7 @@ export const CalendarModal = () => {
                     <label>Title and notes</label>
                     <input
                         type="text"
-                        className="form-control"
+                        className={`form-control ${titleClass}`}
                         placeholder="Event title"
                         name="title"
                         value={formValues.title}
@@ -131,7 +111,7 @@ export const CalendarModal = () => {
                         name="notes"
                         value={formValues.notes}
                         onChange={onInputChange}
-                    ></textarea>
+                    />
                     <small id="emailHelp" className="form-text text-muted">Additional info</small>
                 </div>
 
@@ -142,7 +122,6 @@ export const CalendarModal = () => {
                     <i className="far fa-save"></i>
                     <span> Save </span>
                 </button>
-
             </form>
         </Modal>
     )
