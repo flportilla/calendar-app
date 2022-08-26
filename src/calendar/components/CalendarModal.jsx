@@ -6,8 +6,6 @@ import './CalendarModal.css'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 
-import { addHours } from 'date-fns'
-
 import { useModalForm, useUiStore } from '../../hooks'
 
 //import es from 'date-fns/locale/es'
@@ -26,13 +24,6 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const initialFormState = {
-    title: '',
-    notes: '',
-    start: new Date(),
-    end: addHours(new Date(), 2)
-}
-
 export const CalendarModal = () => {
 
     const { isDateModalOpen, closeDateModal } = useUiStore()
@@ -42,7 +33,7 @@ export const CalendarModal = () => {
         onInputChange,
         onSubmit,
         titleClass,
-        formValues } = useModalForm(initialFormState)
+        formValues } = useModalForm()
 
     return (
         <Modal
