@@ -26,9 +26,10 @@ Modal.setAppElement('#root');
 
 export const CalendarModal = () => {
 
-    const { isDateModalOpen, closeDateModal } = useUiStore()
 
     const {
+        isDateModalOpen,
+        closeDateModal,
         onDateChange,
         onInputChange,
         onSubmit,
