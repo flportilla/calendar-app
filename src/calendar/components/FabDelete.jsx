@@ -10,7 +10,7 @@ export const FabDelete = () => {
         await startDeletingEvent()
     }
 
-    if (!hasEventSelected || activeEvent?.title === '') return
+    if (!hasEventSelected || activeEvent?.title === '') return <></>
 
     return (
         <button
