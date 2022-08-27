@@ -17,14 +17,26 @@ export const CalendarPage = () => {
     const [lastView, setLastView] = useState(localStorage.getItem('lastView' || 'week'))
 
     const eventStyleGetter = (event, start, end, isSelected) => {
-        const style = {
-            backgroundColor: '#232323',
-            borderRadius: '5px',
-            opacity: '0.8',
-            color: 'white'
+        if (isSelected) {
+            const style = {
+                backgroundColor: '#101010',
+                borderRadius: '5px',
+                opacity: '0.8',
+                color: '#000'
+            }
+            return style
         }
-        return {
-            style
+        else {
+
+            const style = {
+                backgroundColor: '#909090',
+                borderRadius: '5px',
+                opacity: '0.8',
+                color: 'white'
+            }
+            return {
+                style
+            }
         }
     }
 
