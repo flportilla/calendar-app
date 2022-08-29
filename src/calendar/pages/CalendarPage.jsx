@@ -14,30 +14,20 @@ export const CalendarPage = () => {
     const { openDateModal } = useUiStore()
     const { events, setActiveEvent } = useCalendarStore()
 
-    const [lastView, setLastView] = useState(localStorage.getItem('lastView' || 'week'))
+    const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'week')
 
     const eventStyleGetter = (event, start, end, isSelected) => {
-        if (isSelected) {
-            const style = {
-                backgroundColor: '#101010',
-                borderRadius: '5px',
-                opacity: '0.8',
-                color: '#000'
-            }
-            return style
-        }
-        else {
 
-            const style = {
-                backgroundColor: '#909090',
-                borderRadius: '5px',
-                opacity: '0.8',
-                color: 'white'
-            }
-            return {
-                style
-            }
+        const style = {
+            backgroundColor: '#909090',
+            borderRadius: '5px',
+            opacity: '0.8',
+            color: 'white'
         }
+        return {
+            style
+        }
+
     }
 
     const onDoubleClick = () => {
