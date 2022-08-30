@@ -26,7 +26,7 @@ export const LoginPage = () => {
     } = useForm(loginFormFields)
 
     const {
-        registerEmail, registerPassword, registerPassword2, registerName, onInputChange: onRegisterInputChange, onResetForm
+        registerEmail, registerPassword, registerPassword2, registerName, onInputChange: onRegisterInputChange
     } = useForm(registerFormFields)
 
 
@@ -40,7 +40,7 @@ export const LoginPage = () => {
         event.preventDefault()
 
         if (registerPassword !== registerPassword2) {
-            onResetForm()
+
             return Swal.fire("Error in registry", "Passwords don't match", 'error')
         }
 

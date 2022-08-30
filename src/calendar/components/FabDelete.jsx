@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCalendarStore, useUiStore } from '../../hooks'
+import { useCalendarStore } from '../../hooks'
 
 
 export const FabDelete = () => {
@@ -7,6 +7,7 @@ export const FabDelete = () => {
     const { startDeletingEvent, hasEventSelected, activeEvent } = useCalendarStore()
 
     const handleDelete = async () => {
+
         await startDeletingEvent()
     }
 

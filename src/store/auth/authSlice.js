@@ -29,4 +29,9 @@ export const authSlice = createSlice({
     },
 });
 
-export const { onChecking, onLogin, onLogout, clearErrorMessage } = authSlice.actions;
+export const {
+    onChecking,
+    onLogin,
+    onLogout,
+    clearErrorMessage
+} = authSlice.actions;
