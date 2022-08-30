@@ -14,7 +14,7 @@ export const AppRouter = () => {
     }, [])
 
     if (status === 'checking') {
-        return <h3>Loaging...</h3>
+        return <h3>Loading...</h3>
     }
 
     return (
@@ -35,9 +35,6 @@ export const AppRouter = () => {
                         </>
                     )
             }
-
-
-
         </Routes>
     )
 }
