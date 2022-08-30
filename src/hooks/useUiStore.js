@@ -3,10 +3,7 @@ import { onCloseDateModal, onOpenDateModal } from "../store/ui/uiSlice"
 
 export const useUiStore = () => {
 
-    const {
-        isDateModalOpen
-    } = useSelector(state => state.ui)
-
+    const { isDateModalOpen } = useSelector(state => state.ui)
     const dispatch = useDispatch()
 
     const openDateModal = () => {
@@ -31,6 +28,7 @@ export const useUiStore = () => {
         //*Methods
         openDateModal,
         closeDateModal,
+        toggleDateModal
     }
 
 }

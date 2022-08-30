@@ -32,14 +32,12 @@ export const useAuthStore = () => {
 
         dispatch(onChecking())
 
-        console.log(email, password, name)
-
         try {
 
             const { data } = await calendarApi.post('/auth/new', {
                 name, email, password
             })
-            console.log(data)
+
             localStorage.setItem('token', data.token)
 
             dispatch(
@@ -89,7 +87,6 @@ export const useAuthStore = () => {
 
     return {
         //* Properties
-
         status,
         user,
         errorMessage,
